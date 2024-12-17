@@ -2,13 +2,14 @@ package ru.innotech.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.innotech.dao.UserProductDAO;
 import ru.innotech.dto.UserProduct;
 import ru.innotech.exception.ProductNotFound;
 
 import java.util.List;
 
-@Component
+@Service
 public class UserProductService {
     UserProductDAO userProductDAO;
 

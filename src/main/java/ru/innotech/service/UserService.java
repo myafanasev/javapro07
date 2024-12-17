@@ -2,13 +2,14 @@ package ru.innotech.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.innotech.dao.UserDAO;
 import ru.innotech.dto.User;
 import ru.innotech.exception.UserNotFound;
 
 import java.util.List;
 
-@Component
+@Service
 public class UserService {
     UserDAO userDAO;
 

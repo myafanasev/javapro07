@@ -3,6 +3,7 @@ package ru.innotech.service;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
@@ -16,7 +17,7 @@ import ru.innotech.exception.UserNotFound;
 import java.net.http.HttpClient;
 import java.util.List;
 
-@Component
+@Service
 public class PayService {
     RestClient restClient;
 
