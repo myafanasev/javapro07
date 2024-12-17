@@ -1,0 +1,8 @@
+server:
+    port: 8081
+datasource:
+#    если используется docker, то вместо localhost должно быть указано имя сервиса как в docker-compose.yml !!! в данном случае db
+    url: jdbc:postgresql://db:5432/javapro06
+#    url: jdbc:postgresql://localhost:5432/javapro06
+    username: postgres
+    password: "1234"

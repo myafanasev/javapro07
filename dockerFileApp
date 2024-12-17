@@ -1,0 +1,4 @@
+FROM openjdk:17
+EXPOSE 8081
+COPY /target/rest_template.jar rest_template.jar
+ENTRYPOINT ["java", "-jar", "rest_template.jar"]
