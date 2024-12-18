@@ -9,7 +9,7 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import ru.innotech.controller.ExchangerData;
-import ru.innotech.dto.UserProduct;
+import ru.innotech.entity.Product;
 import ru.innotech.exception.InsufficientFunds;
 import ru.innotech.exception.ProductNotFound;
 import ru.innotech.exception.UserNotFound;
@@ -25,30 +25,30 @@ public class PayService {
         this.restClient = restClient;
     }
 
-    public List<UserProduct> findAllProductClient(long id)  //  получить список всех продуктов клиента
+    public List<Product> findAllProductClient(long id)  //  получить список всех продуктов клиента
     {
-        List<UserProduct> userProductList;
+        List<Product> productList;
         try {
-            userProductList = restClient.get().uri("/{id}/getAllProducts", id)
+            productList = restClient.get().uri("/{id}/getAllProducts", id)
                     .retrieve()
                     .body(new ParameterizedTypeReference<>(){});
         } catch (HttpClientErrorException e) {
             throw new UserNotFound();
         }
-        return userProductList;
+        return productList;
     }
 
-    public UserProduct findProductId(long idProduct)    // получить продукт по ID
+    public Product findProductId(long idProduct)    // получить продукт по ID
     {
-        UserProduct userProduct;
+        Product product;
         try {
-            userProduct = restClient.get().uri("/getProduct?id={id}", idProduct)
+            product = restClient.get().uri("/getProduct?id={id}", idProduct)
                     .retrieve()
-                    .body(UserProduct.class);
+                    .body(Product.class);
         } catch (HttpClientErrorException e) {
             throw new ProductNotFound();
         }
-        return userProduct;
+        return product;
     }
 
     void checkBalance(double currentBalance, double change) { // проверка достаточности средств для изменения
@@ -58,12 +58,12 @@ public class PayService {
 
     public Boolean checkProductBalance(long idProduct, double balance)    // проверить баланс на продукте
     {
-        UserProduct userProduct = findProductId(idProduct); // найдём продукт
-        checkBalance(userProduct.getBalance(), balance);
+        Product product = findProductId(idProduct); // найдём продукт
+        checkBalance(product.getBalance(), balance);
         return true;
     }
 
-    public UserProduct changeProductBalance(long idProduct, double balance)    // изменить баланс на продукте
+    public Product changeProductBalance(long idProduct, double balance)    // изменить баланс на продукте
     {
         checkProductBalance(idProduct, balance); // проверить баланс на продукте
         // здесь попробуем через интерфейс

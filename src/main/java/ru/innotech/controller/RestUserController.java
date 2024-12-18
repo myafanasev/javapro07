@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.innotech.dto.User;
-import ru.innotech.dto.UserProduct;
+import ru.innotech.entity.Product;
+import ru.innotech.entity.Users;
 import ru.innotech.exception.ProductNotFound;
 import ru.innotech.exception.UserNotFound;
 import ru.innotech.service.UserProductService;
@@ -17,25 +17,27 @@ import java.util.List;
 public class RestUserController {
     UserService userService;
     UserProductService userProductService;
-    @Autowired
-    public void setUserService(UserService userService) { this.userService = userService; }
-    @Autowired
-    public void setUserProductService(UserProductService userProductService) { this.userProductService = userProductService; }
 
+    public RestUserController(UserService userService, UserProductService userProductService) {
+        this.userService = userService;
+        this.userProductService = userProductService;
+    }
+
+    //  получить все продукты клиента
     @GetMapping("/{id}/getAllProducts")
-    public List<UserProduct> getAllProducts(@PathVariable("id") int idUser) {
+    public List<Product> getAllProducts(@PathVariable("id") int idUser) {
         return userProductService.findAllProductClient(userService.findId(idUser).getId());
     }
 
     // возвращает продукт с id, указанным в параметрах запроса
     @GetMapping("/getProduct")
     @ResponseStatus(HttpStatus.OK)
-    public UserProduct getProduct(@RequestParam("id") int idProduct) {
+    public Product getProduct(@RequestParam("id") int idProduct) {
         return userProductService.findId(idProduct);
     }
 
     @GetMapping("/changeBalance") // изменение баланса, сумму "спрячем" в теле
-    public UserProduct checkBalance(@RequestParam("id") int idProduct, @RequestBody Double balance) {
+    public Product checkBalance(@RequestParam("id") int idProduct, @RequestBody Double balance) {
         return userProductService.changeBalance(userProductService.findId(idProduct), balance);
     }
 }

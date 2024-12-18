@@ -1,36 +1,40 @@
 package ru.innotech.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import ru.innotech.dao.UserProductDAO;
-import ru.innotech.dto.UserProduct;
+import ru.innotech.entity.Product;
 import ru.innotech.exception.ProductNotFound;
+import ru.innotech.repo.ProductRepo;
 
 import java.util.List;
 
 @Service
 public class UserProductService {
-    UserProductDAO userProductDAO;
+    ProductRepo productRepo;
 
     @Autowired
-    public void setUserProductDAO(UserProductDAO userProductDAO) {
-        this.userProductDAO = userProductDAO;
+    public UserProductService(ProductRepo productRepo) {
+        this.productRepo = productRepo;
     }
 
-    public List<UserProduct> findAll() { return userProductDAO.findAll(0);} //  все продукты всех клиентов
+    public List<Product> findAll() { return productRepo.findAll();} //  все продукты всех клиентов
 
-    public List<UserProduct> findAllProductClient(long id) { return userProductDAO.findAll(id);} //  все продукты клиента
+    public List<Product> findAllProductClient(long id) { return productRepo.findAllByUserId(id);} //  все продукты клиента
 
-    public UserProduct findId(long idProduct)    // получить продукт по ID
+    public Product findId(long idProduct)    // получить продукт по ID
     {
-        UserProduct userProduct = userProductDAO.findId(idProduct);
-        if (userProduct==null) throw new ProductNotFound(); // если продукт не найден, бросаем исключение
-        return userProduct;
+        Product product = productRepo.findFirstById(idProduct);
+        if (product==null) throw new ProductNotFound(); // если продукт не найден, бросаем исключение
+        return product;
     }
 
-    public UserProduct changeBalance(UserProduct userProduct, double balance)    // изменить баланс
+    @Transactional
+    public Product changeBalance(Product product, double balance)    // изменить баланс
     {
-        return userProductDAO.changeBalance(userProduct, balance);
+        product.setBalance(product.getBalance() + balance);
+        productRepo.save(product);
+        return product;
     }
 }

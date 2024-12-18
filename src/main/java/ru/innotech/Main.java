@@ -9,7 +9,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import java.sql.Connection;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "ru.innotech")
 public class Main {
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(Main.class);
