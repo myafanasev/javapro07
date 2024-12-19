@@ -11,8 +11,6 @@ services:
       - POSTGRES_DB=javapro06
     ports:
       - "5432:5432"
-    volumes:
-      - ./dockerConfig:/docker-entrypoint-initdb.d/
 
   application:
     depends_on:
@@ -27,3 +25,6 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/javapro06
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_FLYWAY_URL=jdbc:postgresql://db:5432/javapro06
+      - SPRING_FLYWAY_USER=postgres
+      - SPRING_FLYWAY_PASSWORD=1234

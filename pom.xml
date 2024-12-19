@@ -41,10 +41,22 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>6.1.5</version>
-        </dependency><!--        <dependency>-->
-<!--            <groupId>org.flywaydb</groupId>-->
-<!--            <artifactId>flyway-core</artifactId>-->
-<!--        </dependency>-->
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>11.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>10.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>11.1.0</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -60,11 +72,6 @@
             <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.zaxxer</groupId>-->
-<!--            <artifactId>HikariCP</artifactId>-->
-<!--            <version>6.1.0</version>-->
-<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -91,12 +98,11 @@
 <!--                <artifactId>flyway-maven-plugin</artifactId>-->
 <!--                <version>11.0.0</version>-->
 <!--                <configuration>-->
-<!--                    <url>jdbc:postgresql://db:5432/javapro06</url>-->
+<!--                    <url>jdbc:postgresql://localhost:5432/javapro06</url>-->
+<!--                    <cleanDisabled>false</cleanDisabled>-->
 <!--                    <user>postgres</user>-->
 <!--                    <password>1234</password>-->
-<!--                    <schemas>-->
-<!--                        <schema>public</schema>-->
-<!--                    </schemas>-->
+
 <!--                </configuration>-->
 <!--            </plugin>-->
         </plugins>

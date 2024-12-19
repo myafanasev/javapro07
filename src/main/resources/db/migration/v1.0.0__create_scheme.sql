@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS users
     id bigint NOT NULL DEFAULT nextval('user_id_seq'::regclass),
     username text NOT NULL,
     CONSTRAINT user_pkey PRIMARY KEY (id)
-);
+    );
 
 CREATE TABLE IF NOT EXISTS public.user_product
 (
@@ -27,4 +27,4 @@ CREATE TABLE IF NOT EXISTS public.user_product
     type text,
     acc_num text,
     CONSTRAINT user_product_pkey PRIMARY KEY (id)
-);
+    );
